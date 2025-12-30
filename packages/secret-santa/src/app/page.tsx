@@ -122,58 +122,70 @@ export default function SecretSanta() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-green-50 py-8 px-4">
-      <div className="max-w-2xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-red-900 via-green-900 to-red-950 py-12 px-4 relative overflow-hidden">
+      {/* Christmas decorative elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-white/5 to-transparent"></div>
+        <div className="absolute top-10 left-10 text-6xl opacity-10">❄️</div>
+        <div className="absolute top-20 right-20 text-5xl opacity-10">⭐</div>
+        <div className="absolute bottom-20 left-20 text-5xl opacity-10">🎄</div>
+        <div className="absolute bottom-10 right-10 text-6xl opacity-10">❄️</div>
+        <div className="absolute top-1/2 left-1/4 text-4xl opacity-10">✨</div>
+        <div className="absolute top-1/3 right-1/3 text-4xl opacity-10">🎁</div>
+      </div>
+
+      <div className="max-w-3xl mx-auto relative z-10">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-red-600 mb-2">
+        <div className="text-center mb-12">
+          <h1 className="text-5xl md:text-6xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-200 via-yellow-200 to-green-200 mb-4 drop-shadow-lg" style={{ fontFamily: 'var(--font-playfair)' }}>
             🎅 Secret Santa
           </h1>
-          <p className="text-gray-600">Organize your gift exchange easily</p>
+          <p className="text-green-100 text-lg font-light tracking-wide">Organize your gift exchange with holiday magic</p>
         </div>
 
         {/* Add Participant Section */}
-        <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">
-            Add Participants ({participants.length}/20)
+        <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 mb-8 border-2 border-red-200">
+          <h2 className="text-2xl font-semibold text-red-900 mb-6 flex items-center gap-2">
+            <span>🎄</span>
+            <span>Add Participants ({participants.length}/20)</span>
           </h2>
           
-          <div className="flex gap-2 mb-4">
+          <div className="flex gap-3 mb-6">
             <input
               type="text"
               value={inputName}
               onChange={(e) => setInputName(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && addParticipant()}
               placeholder="Enter a name..."
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-800"
+              className="flex-1 px-5 py-3 border-2 border-green-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 text-gray-800 text-lg transition-all"
               maxLength={30}
             />
             <button
               onClick={addParticipant}
-              className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium"
+              className="px-8 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-xl hover:from-red-700 hover:to-red-800 transition-all font-semibold shadow-lg hover:shadow-xl transform hover:scale-105"
             >
               Add
             </button>
           </div>
 
           {error && (
-            <div className="text-red-600 text-sm mb-4 bg-red-50 p-3 rounded">
-              {error}
+            <div className="text-red-800 text-sm mb-4 bg-red-100 border-l-4 border-red-600 p-4 rounded-lg">
+              ⚠️ {error}
             </div>
           )}
 
           {/* Participants List */}
           {participants.length > 0 && (
-            <div className="space-y-2">
+            <div className="space-y-3">
               {participants.map((name) => (
                 <div
                   key={name}
-                  className="flex items-center justify-between bg-gray-50 px-4 py-2 rounded-lg"
+                  className="flex items-center justify-between bg-gradient-to-r from-green-50 to-red-50 px-5 py-3 rounded-xl border border-green-200 hover:border-red-300 transition-all"
                 >
-                  <span className="text-gray-800">{name}</span>
+                  <span className="text-gray-800 font-medium text-lg">🎁 {name}</span>
                   <button
                     onClick={() => removeParticipant(name)}
-                    className="text-red-500 hover:text-red-700 font-medium"
+                    className="text-red-600 hover:text-red-800 font-semibold px-3 py-1 rounded-lg hover:bg-red-100 transition-all"
                   >
                     Remove
                   </button>
@@ -187,46 +199,47 @@ export default function SecretSanta() {
         {participants.length >= 2 && Object.keys(assignments).length === 0 && (
           <button
             onClick={drawNames}
-            className="w-full py-4 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-bold text-lg shadow-md"
+            className="w-full py-5 bg-gradient-to-r from-green-600 via-green-700 to-green-800 text-white rounded-2xl hover:from-green-700 hover:via-green-800 hover:to-green-900 transition-all font-bold text-xl shadow-2xl hover:shadow-green-500/50 transform hover:scale-105 border-2 border-green-400"
           >
-            🎁 Draw Names
+            ✨ Draw Names ✨
           </button>
         )}
 
         {/* Results Section */}
         {Object.keys(assignments).length > 0 && (
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-gray-800">
-                Results - Click to Reveal
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border-2 border-green-200">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-semibold text-green-900 flex items-center gap-2">
+                <span>🎁</span>
+                <span>Results - Click to Reveal</span>
               </h2>
               <div className="flex gap-2">
                 <button
                   onClick={resetDraw}
-                  className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm"
+                  className="px-5 py-2 bg-gradient-to-r from-gray-600 to-gray-700 text-white rounded-xl hover:from-gray-700 hover:to-gray-800 transition-all text-sm font-semibold shadow-lg"
                 >
-                  Re-draw
+                  🔄 Re-draw
                 </button>
               </div>
             </div>
 
-            <div className="space-y-2 mb-4">
+            <div className="space-y-3 mb-6">
               {participants.map((name) => (
                 <div key={name}>
                   <button
                     onClick={() => revealedFor === name ? hideAssignment() : revealAssignment(name)}
-                    className="w-full text-left px-4 py-3 bg-red-50 hover:bg-red-100 rounded-lg transition-colors border-2 border-red-200"
+                    className="w-full text-left px-6 py-4 bg-gradient-to-r from-red-50 to-green-50 hover:from-red-100 hover:to-green-100 rounded-xl transition-all border-2 border-red-300 hover:border-green-400 shadow-md hover:shadow-lg transform hover:scale-[1.02]"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-medium text-gray-800">{name}</span>
-                      <span className="text-red-600">
+                      <span className="font-semibold text-gray-800 text-lg">{name}</span>
+                      <span className="text-red-700 font-bold">
                         {revealedFor === name ? '👁️ Hide' : '🎁 Reveal'}
                       </span>
                     </div>
                     {revealedFor === name && (
-                      <div className="mt-2 pt-2 border-t border-red-300">
-                        <span className="text-green-700 font-semibold">
-                          → Gives to: {assignments[name]}
+                      <div className="mt-3 pt-3 border-t-2 border-green-300">
+                        <span className="text-green-800 font-bold text-lg">
+                          ✨ Gives to: {assignments[name]}
                         </span>
                       </div>
                     )}
@@ -236,16 +249,16 @@ export default function SecretSanta() {
             </div>
 
             {/* Export Options */}
-            <div className="flex gap-2 pt-4 border-t border-gray-200">
+            <div className="flex gap-3 pt-6 border-t-2 border-gray-200">
               <button
                 onClick={copyResults}
-                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="flex-1 px-5 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all font-semibold shadow-lg hover:shadow-xl"
               >
                 📋 Copy Results
               </button>
               <button
                 onClick={exportResults}
-                className="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                className="flex-1 px-5 py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-xl hover:from-purple-700 hover:to-purple-800 transition-all font-semibold shadow-lg hover:shadow-xl"
               >
                 💾 Download
               </button>
@@ -255,13 +268,19 @@ export default function SecretSanta() {
 
         {/* Instructions */}
         {participants.length === 0 && (
-          <div className="bg-white rounded-lg shadow-md p-6 text-center text-gray-600">
-            <p className="mb-2">👆 Start by adding participants above</p>
-            <p className="text-sm">You need at least 2 people to draw names</p>
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 text-center text-gray-700 border-2 border-yellow-200">
+            <div className="text-6xl mb-4">🎄</div>
+            <p className="text-xl font-semibold mb-3 text-green-900">Start by adding participants above</p>
+            <p className="text-base text-gray-600">You need at least 2 people to draw names</p>
           </div>
         )}
       </div>
     </div>
   );
 }
+
+
+
+
+
 
